@@ -6,11 +6,14 @@ from sympy.parsing.sympy_parser import parse_expr
 # Simplify the inputted expression function
 def equation_simplified():
     input_expression = equation_entry.get()
-    equation_entered.config(text="Expression Entered: " + input_expression)
-
     try:
-        # Converting the input string into a format that the computer can understand and manipulate and then simplifying it
+        # Converting the input string into a format that the computer can understand and manipulate
         parsed_expression = parse_expr(input_expression)
+
+        # Display the entered expression
+        equation_entered.config(text="Expression Entered: " + input_expression)
+
+        # Simplifying the expression
         simplified_expression = simplify_logic(parsed_expression)
 
         # Display the simplified expression
