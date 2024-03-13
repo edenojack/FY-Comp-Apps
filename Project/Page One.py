@@ -1,16 +1,22 @@
 import tkinter as tk
+from sympy.logic.boolalg import Or, And, Not, simplify_logic
+from sympy.parsing.sympy_parser import parse_expr
  
- # Equation display
-
-def equation():
-    equation = equation_entry.get()
-    equation_entered.config(text="Expression Entered: " + equation)
-
-# Code to simplify equation
-
+ 
+# Simplify the inputted expression function
 def equation_simplified():
-    equation_simplifed = ()
-    # Needs work - this is where code will code to simplify
+    input_expression = equation_entry.get()
+    equation_entered.config(text="Expression Entered: " + input_expression)
+
+    try:
+        # Converting the input string into a format that the computer can understand and manipulate and then simplifying it
+        parsed_expression = parse_expr(input_expression)
+        simplified_expression = simplify_logic(parsed_expression)
+
+        # Display the simplified expression
+        simplified_label.config(text="Simplified Expression: " + str(simplified_expression))
+    except Exception as e:
+        simplified_label.config(text="Error: " + str(e))
 
 
 # Main Loop
@@ -26,10 +32,13 @@ enter_expression.pack(pady=10)
 equation_entry = tk.Entry(root, width=30)
 equation_entry.pack(pady=10)
  
-submit = tk.Button(root, text="Submit", command=equation)
+submit = tk.Button(root, text="Submit", command=equation_simplified)
 submit.pack(pady=10)
  
 equation_entered = tk.Label(root, text="Expression Entered: ")
 equation_entered.pack(pady=10)
+
+simplified_label = tk.Label(root, text="Simplified Expression: ")
+simplified_label.pack(pady=10)
  
 root.mainloop()
