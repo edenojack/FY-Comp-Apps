@@ -39,7 +39,7 @@ def OR_Gate(Inputs):
     TrueResults = False
     for Key in Inputs:
         Value = Inputs[Key]
-        print(Key, Value)
+        #print(Key, Value)
         if Value == True:
             TrueResults = True
 
@@ -75,13 +75,3 @@ def XOR_Gate(Inputs):
 def NOR_Gate(Inputs):
     F = not OR_Gate(Inputs) # Call the OR_Gate, and invert!
     return F
-
-###Run a quick test
-TestInput = {
-    "A": True,
-    "B": False,
-    "C": False,
-    "D": True
-}
-
-print(OR_Gate(TestInput))
