@@ -7,20 +7,15 @@ from sympy.parsing.sympy_parser import parse_expr
 def equation_simplified():
     input_expression = equation_entry.get()
     try:
-        # Converting the input string into a format that the computer can understand and manipulate
         parsed_expression = parse_expr(input_expression)
-
-        # Display the entered expression
+        # Displays entered expression
         equation_entered.config(text="Expression Entered: " + input_expression)
-
         # Simplifying the expression
         simplified_expression = simplify_logic(parsed_expression)
-
-        # Display the simplified expression
+        # Displays simplified expression
         simplified_label.config(text="Simplified Expression: " + str(simplified_expression))
     except Exception as e:
         simplified_label.config(text="Error: " + str(e))
-
 
 # Main Loop
 root = tk.Tk()
