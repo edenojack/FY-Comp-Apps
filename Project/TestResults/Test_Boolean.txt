@@ -1,0 +1,64 @@
+OR_Gate
+Cases being tested: 6 | Succcess rate is; 100.0
+Test Case is; Mixed inputs Test Result is Pass
+Test Case is; True only inputs Test Result is Pass
+Test Case is; False only inputs Test Result is Pass
+Test Case is; Multi Mixed inputs Test Result is Pass
+Test Case is; Multi True only inputs Test Result is Pass
+Test Case is; Multi False only inputs Test Result is Pass
+AND_Gate
+Cases being tested: 6 | Succcess rate is; 100.0
+Test Case is; Mixed inputs Test Result is Pass
+Test Case is; True only inputs Test Result is Pass
+Test Case is; False only inputs Test Result is Pass
+Test Case is; Multi Mixed inputs Test Result is Pass
+Test Case is; Multi True only inputs Test Result is Pass
+Test Case is; Multi False only inputs Test Result is Pass
+NAND_Gate
+Cases being tested: 6 | Succcess rate is; 100.0
+Test Case is; Mixed inputs Test Result is Pass
+Test Case is; True only inputs Test Result is Pass
+Test Case is; False only inputs Test Result is Pass
+Test Case is; Multi Mixed inputs Test Result is Pass
+Test Case is; Multi True only inputs Test Result is Pass
+Test Case is; Multi False only inputs Test Result is Pass
+XOR_Gate
+Cases being tested: 6 | Succcess rate is; 100.0
+Test Case is; Mixed inputs Test Result is Pass
+Test Case is; True only inputs Test Result is Pass
+Test Case is; False only inputs Test Result is Pass
+Test Case is; Multi Mixed inputs Test Result is Pass
+Test Case is; Multi True only inputs Test Result is Pass
+Test Case is; Multi False only inputs Test Result is Pass
+NOR_Gate
+Cases being tested: 6 | Succcess rate is; 100.0
+Test Case is; Mixed inputs Test Result is Pass
+Test Case is; True only inputs Test Result is Pass
+Test Case is; False only inputs Test Result is Pass
+Test Case is; Multi Mixed inputs Test Result is Pass
+Test Case is; Multi True only inputs Test Result is Pass
+Test Case is; Multi False only inputs Test Result is Pass
+Sequence_Tests
+Cases being tested: 6 | Succcess rate is; 100.0
+Test Case is; All True Test Result is Pass
+Test Case is; B False Test Result is Pass
+Test Case is; B/C False Test Result is Pass
+Test Case is; A False Test Result is Pass
+Test Case is; D False Test Result is Pass
+Test Case is; All False Test Result is Pass
+
+Test Report
+
+Final Test case results pass rate: 100.0 % of 36 tests
+OR_Gate
+Cases tested: 6 | Succcess rate is; 100.0
+AND_Gate
+Cases tested: 6 | Succcess rate is; 100.0
+NAND_Gate
+Cases tested: 6 | Succcess rate is; 100.0
+XOR_Gate
+Cases tested: 6 | Succcess rate is; 100.0
+NOR_Gate
+Cases tested: 6 | Succcess rate is; 100.0
+Sequence_Tests
+Cases tested: 6 | Succcess rate is; 100.0
