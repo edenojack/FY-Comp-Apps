@@ -1,7 +1,7 @@
 import tkinter as tk
 from PIL import ImageTk, Image
 
-class HomePage:
+class MenuPages:
     def __init__(self, master):
         self.master = master
         self.master.title("Boolean Algebra App")
@@ -61,6 +61,31 @@ class HomePage:
     def create_boolean_formulas(self):
         self.label_boolean_formulas = tk.Label(self.boolean_formulas_frame, text="Boolean Algebra Formulas", font=('bold', 12))
         self.label_boolean_formulas.pack(padx=20, pady=20)
+
+        message = "Boolean algebra laws are fundamental rules used to simplify and manipulate Boolean expressions.\n\nThese laws are essential in logic circuit design and optimisation.\n\nBelow are examples of the main Boolean Algrebra laws:"
+        self.message_label = tk.Label(self.boolean_formulas_frame, text = message)
+        self.message_label.pack(padx=20, pady=20)
+
+    # Boolean algebra laws
+        laws = {
+            "Identity Law": "A + 0 = A\nA * 1 = A",
+            "Annulment Law": "A + 1 = 1\nA * 0 = 0",
+            "Complement Law": "A + A' = 1\nA * A' = 0",
+            "Idempotent Law": "A + A = A\nA * A = A",
+            "Associative Law": "(A + B) + C = A + (B + C)\n(A * B) * C = A * (B * C)",
+            "Commutative Law": "A + B = B + A\nA * B = B * A",
+            "Distributive Law": "A + (B * C) = (A + B) * (A + C)\nA * (B + C) = (A * B) + (A * C)",
+            "De Morgan's Law": "(A + B)' = A' * B'\n(A * B)' = A' + B'"
+    }
+
+        self.laws_text = tk.Text(self.boolean_formulas_frame, wrap=tk.WORD)
+        self.laws_text.pack(padx=20, pady=20)
+
+        for law, formula in laws.items():
+            self.laws_text.insert(tk.END, f"{law}:\n{formula}\n\n")
+        self.laws_text.config(state=tk.DISABLED)
+
+
 
 # PAGE FOUR "LOGIC GATES EXPLANATION" (logic_theory)
     def create_logic_theory(self):
@@ -138,7 +163,7 @@ class ANDGateAnimation:
         self.gate = self.canvas.create_polygon(120, 60, 160, 60, 160, 140, 120, 140, outline='black', fill='white')
         self.canvas.create_line(80, 65, 120, 100, fill='black')
         self.canvas.create_line(80, 135, 120, 100, fill='black')
-        self.canvas.create_line(160, 80, 220, 100, fill='black')
+        self.canvas.create_line(160, 100, 220, 100, fill='black')
         
         self.canvas.create_text(25, 70, text='IN1')
         self.canvas.create_text(25, 140, text='IN2')
@@ -182,17 +207,17 @@ class ORGateAnimation:
         self.input1 = self.canvas.create_oval(50, 50, 80, 80, outline='black', fill='white')
         self.input2 = self.canvas.create_oval(50, 120, 80, 150, outline='black', fill='white')
         self.output = self.canvas.create_oval(220, 85, 250, 115, outline='black', fill='white')
-        
+
         self.gate = self.canvas.create_polygon(120, 60, 160, 60, 160, 140, 120, 140, outline='black', fill='white')
         self.canvas.create_line(80, 65, 120, 100, fill='black')
         self.canvas.create_line(80, 135, 120, 100, fill='black')
-        self.canvas.create_line(160, 80, 220, 100, fill='black')
-   
+        self.canvas.create_line(160, 100, 220, 100, fill='black')
+
         self.canvas.create_text(25, 70, text='IN1')
         self.canvas.create_text(25, 140, text='IN2')
         self.canvas.create_text(275, 100, text='OUT')
         self.canvas.create_text(140, 100, text='OR Gate')
-        
+
         self.canvas.tag_bind(self.input1, '<Button-1>', lambda event: self.toggle_input(1))
         self.canvas.tag_bind(self.input2, '<Button-1>', lambda event: self.toggle_input(2))
 
@@ -250,11 +275,10 @@ class NOTGateAnimation:
         self.canvas.itemconfig(self.output, fill='green' if self.output_state else 'white')
 
 
-
 # Main Loop
 def main():
     root = tk.Tk()
-    app = HomePage(root)
+    app = MenuPages(root)
     root.mainloop()
 
 if __name__ == "__main__":
