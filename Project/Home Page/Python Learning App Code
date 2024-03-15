@@ -1,0 +1,261 @@
+import tkinter as tk
+from PIL import ImageTk, Image
+
+class HomePage:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Boolean Algebra App")
+
+        # Margin to hold buttons
+        self.frame = tk.Frame(master)
+        self.frame.pack(fill=tk.BOTH, expand=True)
+        self.margin_frame = tk.Frame(self.frame, bg="light grey", width=200)
+        self.margin_frame.pack(side=tk.LEFT, fill=tk.Y)
+
+        # Opening explanatory text
+        self.explanation_label = tk.Label(self.frame, text="Welcome to Boolean Algebra App!\n\nThis application helps you with Boolean algebra operations and logic circuit simplifications.\n\nTo get started, click on the options in the left menu.")
+        self.explanation_label.pack(pady=20)
+        
+        # Title for the margin
+        self.label_menu = tk.Label(self.margin_frame, text="Menu", bg="light grey", font=("Helvetica", 14, "bold"))
+        self.label_menu.pack(pady=10)
+        
+        # Buttons in the margin
+        self.button_boolean_simplifier = tk.Button(self.margin_frame, text="Boolean Algebra Simplifier", command=self.show_boolean_simplifier_page)
+        self.button_boolean_simplifier.pack(pady=10, padx=20)
+        self.button_logic_simplifier = tk.Button(self.margin_frame, text="Logic Gates Simplifier", command=self.show_logic_simplifier_page)
+        self.button_logic_simplifier.pack(pady=10, padx=20)
+        self.button_boolean_formulas = tk.Button(self.margin_frame, text="Boolean Algebra Formulas", command=self.show_boolean_formulas_page)
+        self.button_boolean_formulas.pack(pady=10, padx=20)
+        self.button_logic_theory = tk.Button(self.margin_frame, text="Logic Gates Explanation", command=self.show_logic_theory_page)
+        self.button_logic_theory.pack(pady=10, padx=20)
+        
+        # Frames for each page
+        self.boolean_simplifier_frame = tk.Frame(self.frame)
+        self.logic_simplifier_frame = tk.Frame(self.frame)
+        self.boolean_formulas_frame = tk.Frame(self.frame)
+        self.logic_theory_frame = tk.Frame(self.frame)
+        
+        self.boolean_simplifier_frame.pack_forget()
+        self.logic_simplifier_frame.pack_forget()
+        self.boolean_formulas_frame.pack_forget()
+        self.logic_theory_frame.pack_forget()
+
+        # Create page contents
+        self.create_boolean_simplifier_page()
+        self.create_logic_simplifier_page()
+        self.create_boolean_formulas()
+        self.create_logic_theory()
+
+# PAGE ONE "BOOLEAN ALGEBRA SIMPLIFIER" (boolean_simplifier)    
+    def create_boolean_simplifier_page(self):
+        self.label_boolean_simplifier = tk.Label(self.boolean_simplifier_frame, text="Boolean Algebra Simplifier", font=('bold', 12))
+        self.label_boolean_simplifier.pack(padx=20, pady=20)
+
+# PAGE TWO "LOGIC GATES SIMPLIFIER" (logic_simplifier)
+    def create_logic_simplifier_page(self):
+        self.label_logic_simplifier = tk.Label(self.logic_simplifier_frame, text="Logic Gates Simplifier", font=('bold', 12))
+        self.label_logic_simplifier.pack(padx=20, pady=20)
+
+# PAGE THREE "BOOLEAN ALGEBRA FORMULAS" (boolean_formulas)    
+    def create_boolean_formulas(self):
+        self.label_boolean_formulas = tk.Label(self.boolean_formulas_frame, text="Boolean Algebra Formulas", font=('bold', 12))
+        self.label_boolean_formulas.pack(padx=20, pady=20)
+
+# PAGE FOUR "LOGIC GATES EXPLANATION" (logic_theory)
+    def create_logic_theory(self):
+        self.label_logic_theory = tk.Label(self.logic_theory_frame, text="Logic Gates Explanation", font=('bold', 12))
+        self.label_logic_theory.pack(padx=20, pady=20)
+
+        self.logic_gate_explanation = tk.Label(self.logic_theory_frame, text="Logic gates are fundamental building blocks of digital circuits. Here are the basic logic gates:\n\nYou can simplify logic circuits using these gates to perform various operations.", wraplength=300)
+        self.logic_gate_explanation.pack(padx=20, pady=20)
+
+# AND Gate Animation
+        self.logic_gate_explanation = tk.Label(self.logic_theory_frame, text="AND Gate: Takes two inputs and produces an output only if both inputs are True.")
+        self.logic_gate_explanation.pack(padx=20, pady=20)
+        self.and_gate_animation = ANDGateAnimation(self.logic_theory_frame)
+
+# OR Gate Animation
+        self.logic_gate_explanation = tk.Label(self.logic_theory_frame, text="OR Gate: Takes two inputs and produces an output if at least one input is True.")
+        self.logic_gate_explanation.pack(padx=20, pady=20)
+        self.and_gate_animation = ORGateAnimation(self.logic_theory_frame)
+
+        self.logic_gate_explanation = tk.Label(self.logic_theory_frame, text="NOT Gate: Takes one input and produces the opposite output.")
+        self.logic_gate_explanation.pack(padx=20, pady=20)
+        self.and_gate_animation = NOTGateAnimation(self.logic_theory_frame)
+
+
+
+
+    def show_boolean_simplifier_page(self):
+        self.hide_all_frames()
+        self.explanation_label.pack_forget()
+        self.boolean_simplifier_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+    
+    def show_logic_simplifier_page(self):
+        self.hide_all_frames()
+        self.explanation_label.pack_forget()
+        self.logic_simplifier_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+    
+    def show_boolean_formulas_page(self):
+        self.hide_all_frames()
+        self.explanation_label.pack_forget()
+        self.boolean_formulas_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+    def show_logic_theory_page(self):
+        self.hide_all_frames()
+        self.explanation_label.pack_forget()
+        self.logic_theory_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+    
+    def hide_all_frames(self):
+        self.boolean_simplifier_frame.pack_forget()
+        self.logic_simplifier_frame.pack_forget()
+        self.boolean_formulas_frame.pack_forget()
+        self.logic_theory_frame.pack_forget()
+
+
+
+
+
+# CODES FOR ANIMATING THE AND, OR AND NOT GATE UNDER PAGE FOUR "LOGIC GATE EXPLANATION"
+
+class ANDGateAnimation:
+    def __init__(self, master):
+        self.master = master
+        self.canvas = tk.Canvas(master, width=300, height=200, bg='white')
+        self.canvas.pack()
+        self.input1_state = False
+        self.input2_state = False
+        self.output_state = False
+        
+        self.create_elements()
+        
+    def create_elements(self):
+        self.input1 = self.canvas.create_oval(50, 50, 80, 80, outline='black', fill='white')
+        self.input2 = self.canvas.create_oval(50, 120, 80, 150, outline='black', fill='white')
+        self.output = self.canvas.create_oval(220, 85, 250, 115, outline='black', fill='white')
+        
+        self.gate = self.canvas.create_polygon(120, 60, 160, 60, 160, 140, 120, 140, outline='black', fill='white')
+        self.canvas.create_line(80, 65, 120, 100, fill='black')
+        self.canvas.create_line(80, 135, 120, 100, fill='black')
+        self.canvas.create_line(160, 80, 220, 100, fill='black')
+        
+        self.canvas.create_text(25, 70, text='IN1')
+        self.canvas.create_text(25, 140, text='IN2')
+        self.canvas.create_text(275, 100, text='OUT')
+        self.canvas.create_text(140, 100, text='AND Gate')
+        
+        self.canvas.tag_bind(self.input1, '<Button-1>', lambda event: self.toggle_input(1))
+        self.canvas.tag_bind(self.input2, '<Button-1>', lambda event: self.toggle_input(2))
+        
+    # AND Gate Logic
+    def toggle_input(self, input_num):
+        if input_num == 1:
+            self.input1_state = not self.input1_state
+            self.canvas.itemconfig(self.input1, fill='green' if self.input1_state else 'white')
+        elif input_num == 2:
+            self.input2_state = not self.input2_state
+            self.canvas.itemconfig(self.input2, fill='green' if self.input2_state else 'white')
+        
+        self.update_output()
+        
+    def update_output(self):
+        if self.input1_state and self.input2_state:
+            self.output_state = True
+        else:
+            self.output_state = False
+            
+        self.canvas.itemconfig(self.output, fill='green' if self.output_state else 'white')
+
+class ORGateAnimation:
+    def __init__(self, master):
+        self.master = master
+        self.canvas = tk.Canvas(master, width=300, height=200, bg='white')
+        self.canvas.pack()
+        self.input1_state = False
+        self.input2_state = False
+        self.output_state = False
+        
+        self.create_elements()
+        
+    def create_elements(self):
+        self.input1 = self.canvas.create_oval(50, 50, 80, 80, outline='black', fill='white')
+        self.input2 = self.canvas.create_oval(50, 120, 80, 150, outline='black', fill='white')
+        self.output = self.canvas.create_oval(220, 85, 250, 115, outline='black', fill='white')
+        
+        self.gate = self.canvas.create_polygon(120, 60, 160, 60, 160, 140, 120, 140, outline='black', fill='white')
+        self.canvas.create_line(80, 65, 120, 100, fill='black')
+        self.canvas.create_line(80, 135, 120, 100, fill='black')
+        self.canvas.create_line(160, 80, 220, 100, fill='black')
+   
+        self.canvas.create_text(25, 70, text='IN1')
+        self.canvas.create_text(25, 140, text='IN2')
+        self.canvas.create_text(275, 100, text='OUT')
+        self.canvas.create_text(140, 100, text='OR Gate')
+        
+        self.canvas.tag_bind(self.input1, '<Button-1>', lambda event: self.toggle_input(1))
+        self.canvas.tag_bind(self.input2, '<Button-1>', lambda event: self.toggle_input(2))
+
+    # OR Gate Logic
+    def toggle_input(self, input_num):
+        if input_num == 1:
+            self.input1_state = not self.input1_state
+            self.canvas.itemconfig(self.input1, fill='green' if self.input1_state else 'white')
+        elif input_num == 2:
+            self.input2_state = not self.input2_state
+            self.canvas.itemconfig(self.input2, fill='green' if self.input2_state else 'white')
+        
+        self.update_output()
+        
+    def update_output(self):
+        if self.input1_state or self.input2_state:
+            self.output_state = True
+        else:
+            self.output_state = False
+            
+        self.canvas.itemconfig(self.output, fill='green' if self.output_state else 'white')
+
+class NOTGateAnimation:
+    def __init__(self, master):
+        self.master = master
+        self.canvas = tk.Canvas(master, width=300, height=200, bg='white')
+        self.canvas.pack()
+        self.input_state = False
+        self.output_state = False
+        
+        self.create_elements()
+        
+    def create_elements(self):
+        self.input = self.canvas.create_oval(50, 100, 80, 130, outline='black', fill='white')
+        self.output = self.canvas.create_oval(220, 100, 250, 130, outline='black', fill='white')
+        
+        self.gate = self.canvas.create_rectangle(110, 80, 170, 150, outline='black', fill='white')
+        self.not_gate_symbol = self.canvas.create_text(140, 115, text='NOT Gate')
+        self.not_gate_line = self.canvas.create_line(80, 115, 110, 115, fill='black')
+        self.not_gate_output_line = self.canvas.create_line(170, 115, 220, 115, fill='black')
+
+        self.canvas.create_text(25, 115, text='IN')
+        self.canvas.create_text(275, 115, text='OUT')
+        
+        self.canvas.tag_bind(self.input, '<Button-1>', self.toggle_input)
+
+     # NOT Gate Logic   
+    def toggle_input(self, event):
+        self.input_state = not self.input_state
+        self.canvas.itemconfig(self.input, fill='green' if self.input_state else 'white')
+        self.update_output()
+        
+    def update_output(self):
+        self.output_state = not self.input_state
+        self.canvas.itemconfig(self.output, fill='green' if self.output_state else 'white')
+
+
+
+# Main Loop
+def main():
+    root = tk.Tk()
+    app = HomePage(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
