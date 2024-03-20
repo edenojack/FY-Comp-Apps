@@ -92,25 +92,36 @@ class MenuPages:
         self.label_logic_theory = tk.Label(self.logic_theory_frame, text="Logic Gates Explanation", font=('bold', 12))
         self.label_logic_theory.pack(padx=20, pady=20)
 
-        self.logic_gate_explanation = tk.Label(self.logic_theory_frame, text="Logic gates are fundamental building blocks of digital circuits. Here are the basic logic gates:\n\nYou can simplify logic circuits using these gates to perform various operations.", wraplength=300)
-        self.logic_gate_explanation.pack(padx=20, pady=20)
+        self.canvas = tk.Canvas(self.logic_theory_frame)
+        self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        self.scrollbar = tk.Scrollbar(self.logic_theory_frame, orient=tk.VERTICAL, command=self.canvas.yview)
+        self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.canvas.configure(yscrollcommand=self.scrollbar.set)
+        self.inner_frame = tk.Frame(self.canvas)
+        self.canvas.create_window((0, 0), window=self.inner_frame, anchor=tk.NW)
 
-# AND Gate Animation
-        self.logic_gate_explanation = tk.Label(self.logic_theory_frame, text="AND Gate: Takes two inputs and produces an output only if both inputs are True.")
-        self.logic_gate_explanation.pack(padx=20, pady=20)
-        self.and_gate_animation = ANDGateAnimation(self.logic_theory_frame)
+    # Logic gates explanation
+        self.logic_gate_explanation_1 = tk.Label(self.inner_frame, text="Logic gates are fundamental building blocks of digital circuits. Here are the basic logic gates:\n\nYou can simplify logic circuits using these gates to perform various operations.", wraplength=300)
+        self.logic_gate_explanation_1.pack(padx=20, pady=20)
 
-# OR Gate Animation
-        self.logic_gate_explanation = tk.Label(self.logic_theory_frame, text="OR Gate: Takes two inputs and produces an output if at least one input is True.")
-        self.logic_gate_explanation.pack(padx=20, pady=20)
-        self.and_gate_animation = ORGateAnimation(self.logic_theory_frame)
+    # AND Gate Animation
+        self.and_gate_explanation = tk.Label(self.inner_frame, text="AND Gate: Takes two inputs and produces an output only if both inputs are True.")
+        self.and_gate_explanation.pack(padx=20, pady=20)
+        self.and_gate_animation = ANDGateAnimation(self.inner_frame)
 
-        self.logic_gate_explanation = tk.Label(self.logic_theory_frame, text="NOT Gate: Takes one input and produces the opposite output.")
-        self.logic_gate_explanation.pack(padx=20, pady=20)
-        self.and_gate_animation = NOTGateAnimation(self.logic_theory_frame)
+    # OR Gate Animation
+        self.or_gate_explanation = tk.Label(self.inner_frame, text="OR Gate: Takes two inputs and produces an output if at least one input is True.")
+        self.or_gate_explanation.pack(padx=20, pady=20)
+        self.or_gate_animation = ORGateAnimation(self.inner_frame)
 
+    # NOT Gate Animation
+        self.not_gate_explanation = tk.Label(self.inner_frame, text="NOT Gate: Takes one input and produces the opposite output.")
+        self.not_gate_explanation.pack(padx=20, pady=20)
+        self.not_gate_animation = NOTGateAnimation(self.inner_frame)
 
-
+ 
+        self.inner_frame.update_idletasks()
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
     def show_boolean_simplifier_page(self):
         self.hide_all_frames()
