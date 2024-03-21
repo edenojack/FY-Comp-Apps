@@ -208,7 +208,7 @@ class ANDGateAnimation:
         else:
             self.output_state = False
             
-        self.canvas.itemconfig(self.output, fill='green' if self.output_state else 'white')
+        self.canvas.itemconfig(self.output, fill='green' if self.output_state else 'red')
 
 class ORGateAnimation:
     def __init__(self, master):
@@ -243,10 +243,10 @@ class ORGateAnimation:
     def toggle_input(self, input_num):
         if input_num == 1:
             self.input1_state = not self.input1_state
-            self.canvas.itemconfig(self.input1, fill='green' if self.input1_state else 'white')
+            self.canvas.itemconfig(self.input1, fill='green' if self.input1_state else 'red')
         elif input_num == 2:
             self.input2_state = not self.input2_state
-            self.canvas.itemconfig(self.input2, fill='green' if self.input2_state else 'white')
+            self.canvas.itemconfig(self.input2, fill='green' if self.input2_state else 'red')
         
         self.update_output()
         
@@ -256,7 +256,7 @@ class ORGateAnimation:
         else:
             self.output_state = False
             
-        self.canvas.itemconfig(self.output, fill='green' if self.output_state else 'white')
+        self.canvas.itemconfig(self.output, fill='green' if self.output_state else 'red')
 
 class NOTGateAnimation:
     def __init__(self, master):
@@ -285,12 +285,12 @@ class NOTGateAnimation:
      # NOT Gate Logic   
     def toggle_input(self, event):
         self.input_state = not self.input_state
-        self.canvas.itemconfig(self.input, fill='green' if self.input_state else 'white')
+        self.canvas.itemconfig(self.input, fill='green' if self.input_state else 'red')
         self.update_output()
         
     def update_output(self):
         self.output_state = not self.input_state
-        self.canvas.itemconfig(self.output, fill='green' if self.output_state else 'white')
+        self.canvas.itemconfig(self.output, fill='green' if self.output_state else 'red')
 
 
 # Main Loop
