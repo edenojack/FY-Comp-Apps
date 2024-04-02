@@ -71,7 +71,29 @@ class LogicTheoryPage(BasePage):
         self.label_logic_theory = tk.Label(self, text="Logic Gates Explanation", font=('bold', 12))
         self.label_logic_theory.pack(padx=20, pady=20)
 
+        self.create_help_button()  # Add a help button
+
         self.create_logic_theory()
+
+    def create_help_button(self):
+        help_button = tk.Button(self, text="Help", command=self.show_help)
+        help_button.place(x=1000, y=10)
+
+    def show_help(self):
+        help_text = """
+        This window provides an explanation of logic gates and their operations.
+
+        Displayed is basic information about logic gates, including AND, OR, and NOT gates. Each gate is described along with its functionality.
+
+        Below each gate description, you'll see an animation demonstrating how the gate works. You can interact with the animations by clicking on the input circles to toggle their states.
+
+        When toggled 'red' the input or output represents 0
+        When toggled 'green' the input or output represents 1
+
+        Feel free to explore the content and interact with the animations to understand the concepts better.
+
+        """
+        messagebox.showinfo("Logic Theory Page Help", help_text)
 
     def create_logic_theory(self):
         self.canvas = tk.Canvas(self)
@@ -83,7 +105,8 @@ class LogicTheoryPage(BasePage):
         self.canvas.create_window((0, 0), window=self.inner_frame, anchor=tk.NW)
 
         self.logic_gate_explanation_1 = tk.Label(self.inner_frame, text="Logic gates are fundamental building blocks of digital circuits. Here are the basic logic gates:\n\nYou can simplify logic circuits using these gates to perform various operations.", wraplength=300)
-        self.logic_gate_explanation_1.pack(padx=20, pady=20)
+        self.logic_gate_explanation_1.pack(padx=20, pady=20, anchor=tk.CENTER)
+
 
         gate_explanations = [
             ("AND", "AND Gate: Takes two inputs and produces an output only if both inputs are True."),
