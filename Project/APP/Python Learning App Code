@@ -1,65 +1,49 @@
 import tkinter as tk
-from PIL import ImageTk, Image
+from tkinter import messagebox
 
-class MenuPages:
-    def __init__(self, master):
-        self.master = master
-        self.master.title("Boolean Algebra App")
+# To make a new page add it as a class, for example:
 
-        self.header_label = tk.Label(master, text="Boolean Algebra App", font=("Helvetica", 16, "bold"), bg="light grey")
-        self.header_label.pack(pady=0, fill=tk.X)
+    # class NewPage(BasePage):
+        #def __init__(self, master, *args, **kwargs):
+        #super().__init__(master, *args, **kwargs)
+        #self.label_new_page = tk.Label(self, text="New Page", font=('bold', 12))
+        #self.label_new_page.pack(padx=20, pady=20)
 
-        self.frame = tk.Frame(master)
-        self.frame.pack(fill=tk.BOTH, expand=True)
-        self.margin_frame = tk.Frame(self.frame, bg="light grey", width=180)
-        self.margin_frame.pack(side=tk.LEFT, fill=tk.Y)
+            # Add more widgets and logic as needed
 
-        self.explanation_label = tk.Label(self.frame, text="Welcome to the Boolean Algebra App!\n\nThis application helps you with Boolean algebra operations and logic circuit simplifications.\n\nTo get started, click on the options in the left menu.")
-        self.explanation_label.pack(pady=20)
+            # Then go to class MenuPages(tk.Frame): and add the new page there
+            # Do the same at def create_menu_buttons(self): to add the page button into the menu
 
-# Menu Buttons
-        self.label_menu = tk.Label(self.margin_frame, text="Menu", bg="light grey", font=("Helvetica", 14, "bold"))
-        self.label_menu.pack(pady=10)
-        buttons = [
-            ("Boolean Algebra Simplifier", self.show_boolean_simplifier_page),
-            ("Logic Gates Simplifier", self.show_logic_simplifier_page),
-            ("Boolean Algebra Formulas", self.show_boolean_formulas_page),
-            ("Logic Gates Explanation", self.show_logic_theory_page)
-        ]
-
-        for text, command in buttons:
-            button = tk.Button(self.margin_frame, text=text, command=command)
-            button.pack(pady=10, padx=20)
-        
+class BasePage(tk.Frame):
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
     
-        self.boolean_simplifier_frame = tk.Frame(self.frame)
-        self.logic_simplifier_frame = tk.Frame(self.frame)
-        self.boolean_formulas_frame = tk.Frame(self.frame)
-        self.logic_theory_frame = tk.Frame(self.frame)
+    def show(self):
+        self.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        
+    def hide(self):
+        self.pack_forget()
 
-        self.create_boolean_simplifier_page()
-        self.create_logic_simplifier_page()
-        self.create_boolean_formulas()
-        self.create_logic_theory()
-
-
-# PAGE ONE "BOOLEAN ALGEBRA SIMPLIFIER" (boolean_simplifier)    
-    def create_boolean_simplifier_page(self):
-        self.label_boolean_simplifier = tk.Label(self.boolean_simplifier_frame, text="Boolean Algebra Simplifier", font=('bold', 12))
+class BooleanSimplifierPage(BasePage):
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        self.label_boolean_simplifier = tk.Label(self, text="Boolean Algebra Simplifier", font=('bold', 12))
         self.label_boolean_simplifier.pack(padx=20, pady=20)
 
-# PAGE TWO "LOGIC GATES SIMPLIFIER" (logic_simplifier)
-    def create_logic_simplifier_page(self):
-        self.label_logic_simplifier = tk.Label(self.logic_simplifier_frame, text="Logic Gates Simplifier", font=('bold', 12))
+class LogicSimplifierPage(BasePage):
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        self.label_logic_simplifier = tk.Label(self, text="Logic Gates Simplifier", font=('bold', 12))
         self.label_logic_simplifier.pack(padx=20, pady=20)
 
-# PAGE THREE "BOOLEAN ALGEBRA FORMULAS" (boolean_formulas)    
-    def create_boolean_formulas(self):
-        self.label_boolean_formulas = tk.Label(self.boolean_formulas_frame, text="Boolean Algebra Formulas", font=('bold', 12))
+class BooleanFormulasPage(BasePage):
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        self.label_boolean_formulas = tk.Label(self, text="Boolean Algebra Formulas", font=('bold', 12))
         self.label_boolean_formulas.pack(padx=20, pady=20)
 
-        message = "Boolean algebra laws are fundamental rules used to simplify and manipulate Boolean expressions.\n\nThese laws are essential in logic circuit design and optimisation.\n\nBelow are examples of the main Boolean Algrebra laws:"
-        self.message_label = tk.Label(self.boolean_formulas_frame, text=message)
+        message = "Boolean algebra laws are fundamental rules used to simplify and manipulate Boolean expressions.\n\nThese laws are essential in logic circuit design and optimization.\n\nBelow are examples of the main Boolean Algebra laws:"
+        self.message_label = tk.Label(self, text=message)
         self.message_label.pack(padx=20, pady=20)
 
         laws = {
@@ -73,7 +57,7 @@ class MenuPages:
             "De Morgan's Law": "(A + B)' = A' * B'\n(A * B)' = A' + B'"
         }
 
-        self.laws_text = tk.Text(self.boolean_formulas_frame, wrap=tk.WORD)
+        self.laws_text = tk.Text(self, wrap=tk.WORD)
         self.laws_text.pack(padx=20, pady=20)
 
         for law, formula in laws.items():
@@ -81,7 +65,39 @@ class MenuPages:
     
         self.laws_text.config(state=tk.DISABLED)
 
-# PAGE FOUR "LOGIC GATES EXPLANATION" (logic_theory)
+class LogicTheoryPage(BasePage):
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        self.label_logic_theory = tk.Label(self, text="Logic Gates Explanation", font=('bold', 12))
+        self.label_logic_theory.pack(padx=20, pady=20)
+
+        self.create_logic_theory()
+
+    def create_logic_theory(self):
+        self.canvas = tk.Canvas(self)
+        self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        self.scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL, command=self.canvas.yview)
+        self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.canvas.configure(yscrollcommand=self.scrollbar.set)
+        self.inner_frame = tk.Frame(self.canvas)
+        self.canvas.create_window((0, 0), window=self.inner_frame, anchor=tk.NW)
+
+        self.logic_gate_explanation_1 = tk.Label(self.inner_frame, text="Logic gates are fundamental building blocks of digital circuits. Here are the basic logic gates:\n\nYou can simplify logic circuits using these gates to perform various operations.", wraplength=300)
+        self.logic_gate_explanation_1.pack(padx=20, pady=20)
+
+        gate_explanations = [
+            ("AND", "AND Gate: Takes two inputs and produces an output only if both inputs are True."),
+            ("OR", "OR Gate: Takes two inputs and produces an output if at least one input is True."),
+            ("NOT", "NOT Gate: Takes one input and produces the opposite output.")
+        ]
+        for gate_name, explanation_text in gate_explanations:
+            explanation_label, gate_animation = self.create_logic_gate_explanation(gate_name, explanation_text)
+            explanation_label.pack(padx=20, pady=20)
+
+        def on_canvas_configure(event):
+            self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+        self.inner_frame.bind("<Configure>", on_canvas_configure)
+
     def create_logic_gate_explanation(self, gate_name, explanation_text):
         label = tk.Label(self.inner_frame, text=explanation_text)
         label.pack(padx=20, pady=20)
@@ -93,74 +109,58 @@ class MenuPages:
             gate_animation = NOTGateAnimation(self.inner_frame)
         return label, gate_animation
 
-    def create_logic_theory(self):
-        self.label_logic_theory = tk.Label(self.logic_theory_frame, text="Logic Gates Explanation", font=('bold', 12))
-        self.label_logic_theory.pack(padx=20, pady=20)
+class MenuPages(tk.Frame):
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        self.master = master
+        self.master.title("Boolean Algebra App")
 
-        self.canvas = tk.Canvas(self.logic_theory_frame)
-        self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        self.scrollbar = tk.Scrollbar(self.logic_theory_frame, orient=tk.VERTICAL, command=self.canvas.yview)
-        self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-        self.canvas.configure(yscrollcommand=self.scrollbar.set)
-        self.inner_frame = tk.Frame(self.canvas)
-        self.canvas.create_window((0, 0), window=self.inner_frame, anchor=tk.NW)
+        self.header_label = tk.Label(master, text="Boolean Algebra App", font=("Helvetica", 16, "bold"), bg="light grey")
+        self.header_label.pack(pady=0, fill=tk.X)
 
-    # Logic gates explanation
-        self.logic_gate_explanation_1 = tk.Label(self.inner_frame, text="Logic gates are fundamental building blocks of digital circuits. Here are the basic logic gates:\n\nYou can simplify logic circuits using these gates to perform various operations.", wraplength=300)
-        self.logic_gate_explanation_1.pack(padx=20, pady=20)
+        self.frame = tk.Frame(master)
+        self.frame.pack(fill=tk.BOTH, expand=True)
+        self.margin_frame = tk.Frame(self.frame, bg="light grey", width=180)
+        self.margin_frame.pack(side=tk.LEFT, fill=tk.Y)
 
-    # Create gate explanations and animations
-        gate_explanations = [
-            ("AND", "AND Gate: Takes two inputs and produces an output only if both inputs are True."),
-            ("OR", "OR Gate: Takes two inputs and produces an output if at least one input is True."),
-            ("NOT", "NOT Gate: Takes one input and produces the opposite output.")
+        self.pages = [
+            BooleanSimplifierPage(self.frame),
+            LogicSimplifierPage(self.frame),
+            BooleanFormulasPage(self.frame),
+            LogicTheoryPage(self.frame)
+
+            #ADD NEW PAGES HERE
         ]
-        for gate_name, explanation_text in gate_explanations:
-            explanation_label = tk.Label(self.inner_frame, text=explanation_text)
-            explanation_label.pack(padx=20, pady=20)
-            if gate_name == "AND":
-                gate_animation = ANDGateAnimation(self.inner_frame)
-            elif gate_name == "OR":
-                gate_animation = ORGateAnimation(self.inner_frame)
-            elif gate_name == "NOT":
-                gate_animation = NOTGateAnimation(self.inner_frame)
+        
+        self.current_page = None
 
-        def on_canvas_configure(event):
-            self.canvas.configure(scrollregion=self.canvas.bbox("all"))
-        self.inner_frame.bind("<Configure>", on_canvas_configure)
+        self.create_menu_buttons()
 
+    def create_menu_buttons(self):
+        self.label_menu = tk.Label(self.margin_frame, text="Menu", bg="light grey", font=("Helvetica", 14, "bold"))
+        self.label_menu.pack(pady=10)
 
-    def show_boolean_simplifier_page(self):
-        self.hide_all_frames()
-        self.explanation_label.pack_forget()
-        self.boolean_simplifier_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-    
-    def show_logic_simplifier_page(self):
-        self.hide_all_frames()
-        self.explanation_label.pack_forget()
-        self.logic_simplifier_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-    
-    def show_boolean_formulas_page(self):
-        self.hide_all_frames()
-        self.explanation_label.pack_forget()
-        self.boolean_formulas_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        buttons = [
+            ("Boolean Algebra Simplifier", self.pages[0]),
+            ("Logic Gates Simplifier", self.pages[1]),
+            ("Boolean Algebra Formulas", self.pages[2]),
+            ("Logic Gates Explanation", self.pages[3])
 
-    def show_logic_theory_page(self):
-        self.hide_all_frames()
-        self.explanation_label.pack_forget()
-        self.logic_theory_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-    
-    def hide_all_frames(self):
-        self.boolean_simplifier_frame.pack_forget()
-        self.logic_simplifier_frame.pack_forget()
-        self.boolean_formulas_frame.pack_forget()
-        self.logic_theory_frame.pack_forget()
+            #ADD NEW PAGES HERE
+        ]
+
+        for text, page in buttons:
+            button = tk.Button(self.margin_frame, text=text, command=lambda p=page: self.show_page(p))
+            button.pack(pady=10, padx=20)
+
+    def show_page(self, page):
+        if self.current_page:
+            self.current_page.hide()
+        page.show()
+        self.current_page = page
 
 
-
-
-
-# CODES FOR ANIMATING THE AND, OR AND NOT GATE UNDER PAGE FOUR "LOGIC GATE EXPLANATION"
+# These are the animations for the logic theory page
 
 class ANDGateAnimation:
     def __init__(self, master):
@@ -291,9 +291,8 @@ class NOTGateAnimation:
     def update_output(self):
         self.output_state = not self.input_state
         self.canvas.itemconfig(self.output, fill='green' if self.output_state else 'red')
+       
 
-
-# Main Loop
 def main():
     root = tk.Tk()
     app = MenuPages(root)
@@ -301,3 +300,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
