@@ -30,6 +30,24 @@ class History(BasePage):
         self.label_new_page = tk.Label(self, text="History", font=('bold', 12))
         self.label_new_page.pack(padx=20, pady=20)
 
+        history_text = """
+
+        Boolean algebra is a branch of mathematical logic that deals with the representation of truth values. It was developed by the English mathematician George Boole in the mid-19th century.
+
+        In Boolean algebra, variables can only have two possible values: true (1) or false (0). The operations in Boolean algebra are similar to those in ordinary algebra, but they operate on truth values rather than numerical values.
+
+        Boolean algebra laid the foundation for the design and analysis of digital circuits. This led to the development of logic gates, which are the building blocks of digital circuits.
+
+        Logic gates are electronic devices that perform Boolean operations on one or more input signals to produce a single output signal. There are several types of logic gates, including AND, OR, NOT, NAND, NOR, XOR, and XNOR gates.
+
+        The combination of logic gates in digital circuits allows for the implementation of complex logical functions, making them essential components in computer hardware and digital electronics.
+
+        Boolean algebra and logic gates play a fundamental role in the design and operation of modern digital systems, including computers, microprocessors, and integrated circuits.
+        """
+
+        self.history_label = tk.Label(self, text=history_text, justify="left", wraplength=800)
+        self.history_label.pack(padx=20, pady=20)
+
 class BooleanSimplifierPage(BasePage):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
