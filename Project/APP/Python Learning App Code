@@ -24,6 +24,12 @@ class BasePage(tk.Frame):
     def hide(self):
         self.pack_forget()
 
+class History(BasePage):
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        self.label_new_page = tk.Label(self, text="History", font=('bold', 12))
+        self.label_new_page.pack(padx=20, pady=20)
+
 class BooleanSimplifierPage(BasePage):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
@@ -132,6 +138,7 @@ class LogicTheoryPage(BasePage):
             gate_animation = NOTGateAnimation(self.inner_frame)
         return label, gate_animation
 
+
 class MenuPages(tk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
@@ -147,6 +154,7 @@ class MenuPages(tk.Frame):
         self.margin_frame.pack(side=tk.LEFT, fill=tk.Y)
 
         self.pages = [
+            History(self.frame),
             BooleanSimplifierPage(self.frame),
             LogicSimplifierPage(self.frame),
             BooleanFormulasPage(self.frame),
@@ -164,10 +172,11 @@ class MenuPages(tk.Frame):
         self.label_menu.pack(pady=10)
 
         buttons = [
-            ("Boolean Algebra Simplifier", self.pages[0]),
-            ("Logic Gates Simplifier", self.pages[1]),
-            ("Boolean Algebra Formulas", self.pages[2]),
-            ("Logic Gates Explanation", self.pages[3])
+            ("History", self.pages[0]),
+            ("Boolean Algebra Simplifier", self.pages[1]),
+            ("Logic Gates Simplifier", self.pages[2]),
+            ("Boolean Algebra Formulas", self.pages[3]),
+            ("Logic Gates Explanation", self.pages[4])
 
             #ADD NEW PAGES HERE
         ]
