@@ -49,7 +49,6 @@ class History(BasePage):
         self.history_label = tk.Label(self, text=history_text, justify="left", wraplength=800)
         self.history_label.pack(padx=20, pady=20)
 
-
 class BinaryConverter(BasePage):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
@@ -109,15 +108,15 @@ class BinaryConverter(BasePage):
         This window provides assistance on how to use the binary converter tool.
 
         To use the converter:
-        1. Enter a value in the input box.
+        1. Enter a value input in the input box.
         2. Select the conversion type from the dropdown menu.
         3. Click the 'Convert' button to perform the conversion.
         4. The result will be displayed in the output box below.
 
         Conversion Types:
-        - Binary to Decimal: Convert binary numbers to decimal.
-        - Decimal to Binary: Convert decimal numbers to binary.
-        - Decimal to Hexadecimal: Convert decimal numbers to hexadecimal.
+        - Binary to Decimal
+        - Decimal to Binary
+        - Decimal to Hexadecimal
 
         Notes:
         - For binary input, use only 0s and 1s.
@@ -173,7 +172,7 @@ class BooleanFormulasPage(BasePage):
 class LogicTheoryPage(BasePage):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self.label_logic_theory = tk.Label(self, text="Understanding Logic Gates", font=('bold', 16))
+        self.label_logic_theory = tk.Label(self, text="Understanding Logic Gates", font=('bold', 1))
         self.label_logic_theory.pack(padx=20, pady=20)
 
         self.create_help_button()  # Add a help button
