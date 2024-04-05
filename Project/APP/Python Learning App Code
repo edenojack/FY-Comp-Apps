@@ -73,7 +73,7 @@ class BinaryConverter(BasePage):
         self.convert_button.pack(pady=10)
         self.label_output = tk.Label(self, text="Output:", font=('Arial', 12, 'bold'))
         self.label_output.pack(pady=5)
-        self.output_text = tk.Text(self, height=2, width=30, font=('Arial', 12))
+        self.output_text = tk.Text(self, height=8, width=50, font=('Arial', 12))
         self.output_text.pack(pady=5)
 
     def convert(self):
@@ -81,18 +81,32 @@ class BinaryConverter(BasePage):
         conversion_type = self.conversion_type.get()
 
         try:
+            explanation = ""
             if conversion_type == "Binary to Decimal":
                 decimal_value = int(input_value, 2)
                 result = str(decimal_value)
+                explanation = f"To convert binary '{input_value}' to decimal:\n"
+                explanation += f"1. Start from the rightmost digit.\n"
+                explanation += f"2. Multiply each digit by 2 raised to the power of its position.\n"
+                explanation += f"3. Add the results together to get the decimal value."
             elif conversion_type == "Decimal to Binary":
                 decimal_value = int(input_value)
                 result = bin(decimal_value)[2:]
+                explanation = f"To convert decimal '{input_value}' to binary:\n"
+                explanation += f"1. Divide the decimal number by 2.\n"
+                explanation += f"2. Write down the remainder (0 or 1).\n"
+                explanation += f"3. Repeat the process with the quotient until it becomes 0."
             elif conversion_type == "Decimal to Hexadecimal":
                 decimal_value = int(input_value)
                 result = hex(decimal_value)[2:].upper()
+                explanation = f"To convert decimal '{input_value}' to hexadecimal:\n"
+                explanation += f"1. Divide the decimal number by 16.\n"
+                explanation += f"2. Write down the remainder as a single hexadecimal digit (0-9 or A-F).\n"
+                explanation += f"3. Repeat the process with the quotient until it becomes 0."
 
+            explanation += "\n\nResult:"
             self.output_text.delete(1.0, tk.END)
-            self.output_text.insert(tk.END, result)
+            self.output_text.insert(tk.END, explanation + "\n" + result)
         except ValueError:
             self.output_text.delete(1.0, tk.END)
             self.output_text.insert(tk.END, "Invalid Input")
@@ -114,19 +128,33 @@ class BinaryConverter(BasePage):
         4. The result will be displayed in the output box below.
 
         Conversion Types:
-        - Binary to Decimal
-        - Decimal to Binary
-        - Decimal to Hexadecimal
+        - Binary to Decimal: Convert binary numbers to decimal numbers.
+        - Decimal to Binary: Convert decimal numbers to binary numbers.
+        - Decimal to Hexadecimal: Convert decimal numbers to hexadecimal numbers.
 
         Notes:
         - For binary input, use only 0s and 1s.
         - For decimal input, enter integer values only.
         - Hexadecimal input should be prefixed with '0x' (e.g., 0xFF).
 
-        Enjoy converting your numbers!
+        How to Perform Conversions:
+        - Binary to Decimal:
+            - Start from the rightmost digit.
+            - Multiply each digit by 2 raised to the power of its position.
+            - Add the results together to get the decimal value.
+        - Decimal to Binary:
+            - Divide the decimal number by 2.
+            - Write down the remainder (0 or 1).
+            - Repeat the process with the quotient until it becomes 0.
+        - Decimal to Hexadecimal:
+            - Divide the decimal number by 16.
+            - Write down the remainder as a single hexadecimal digit (0-9 or A-F).
+            - Repeat the process with the quotient until it becomes 0.
 
+        Enjoy converting your numbers!
         """
         messagebox.showinfo("Binary Converter Help", help_text)
+
 
 class BooleanSimplifierPage(BasePage):
     def __init__(self, master, *args, **kwargs):
