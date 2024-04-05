@@ -200,10 +200,10 @@ class BooleanFormulasPage(BasePage):
 class LogicTheoryPage(BasePage):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self.label_logic_theory = tk.Label(self, text="Understanding Logic Gates", font=('bold', 1))
+        self.label_logic_theory = tk.Label(self, text="Understanding Logic Gates", font=('bold', 16))
         self.label_logic_theory.pack(padx=20, pady=20)
 
-        self.create_help_button()  # Add a help button
+        self.create_help_button()
 
         self.create_logic_theory()
 
