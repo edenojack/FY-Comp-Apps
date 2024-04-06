@@ -228,18 +228,20 @@ class LogicTheoryPage(BasePage):
         messagebox.showinfo("Logic Theory Page Help", help_text)
 
     def create_logic_theory(self):
-        self.canvas = tk.Canvas(self)
-        self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        self.canvas = tk.Canvas(self, width=450, height=500)
+        self.canvas.pack(fill=tk.BOTH, expand=True)
+        self.canvas.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
         self.scrollbar = tk.Scrollbar(self, orient=tk.VERTICAL, command=self.canvas.yview)
         self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self.canvas.configure(yscrollcommand=self.scrollbar.set)
+
         self.inner_frame = tk.Frame(self.canvas)
         self.canvas.create_window((0, 0), window=self.inner_frame, anchor=tk.NW)
 
         self.logic_gate_explanation_1 = tk.Label(self.inner_frame, text="Logic gates are fundamental building blocks of digital circuits. Here are the basic logic gates:\n\nYou can simplify logic circuits using these gates to perform various operations.", wraplength=300)
         self.logic_gate_explanation_1.pack(padx=20, pady=20, anchor=tk.CENTER)
-
-
+        
         gate_explanations = [
             ("AND", "AND Gate: Takes two inputs and produces an output only if both inputs are True."),
             ("OR", "OR Gate: Takes two inputs and produces an output if at least one input is True."),
@@ -279,6 +281,9 @@ class MenuPages(tk.Frame):
         self.margin_frame = tk.Frame(self.frame, bg="light grey", width=180)
         self.margin_frame.pack(side=tk.LEFT, fill=tk.Y)
 
+        self.explanation_label = tk.Label(self.frame, text="Welcome to the Boolean Algebra App!\n\nThis application helps you with Boolean algebra operations and logic circuit simplifications.\n\nTo get started, click on the options in the left menu.")
+        self.explanation_label.pack(pady=20)
+
         self.pages = [
             History(self.frame),
             BinaryConverter(self.frame),
@@ -297,7 +302,7 @@ class MenuPages(tk.Frame):
     def create_menu_buttons(self):
         self.label_menu = tk.Label(self.margin_frame, text="Menu", bg="light grey", font=("Helvetica", 14, "bold"))
         self.label_menu.pack(pady=10)
-
+    
         buttons = [
             ("History of Computing", self.pages[0]),
             ("Binary Converter Tool", self.pages[1]),
@@ -316,6 +321,7 @@ class MenuPages(tk.Frame):
     def show_page(self, page):
         if self.current_page:
             self.current_page.hide()
+        self.explanation_label.pack_forget()
         page.show()
         self.current_page = page
 
