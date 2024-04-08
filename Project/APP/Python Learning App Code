@@ -273,12 +273,12 @@ class MenuPages(tk.Frame):
         self.master = master
         self.master.title("Boolean Algebra App")
 
-        self.header_label = tk.Label(master, text="Boolean Algebra App", font=("Helvetica", 16, "bold"), bg="light grey")
+        self.header_label = tk.Label(master, text="Boolean Algebra App", font=("Helvetica", 16, "bold"), bg="light blue")
         self.header_label.pack(pady=0, fill=tk.X)
 
         self.frame = tk.Frame(master)
         self.frame.pack(fill=tk.BOTH, expand=True)
-        self.margin_frame = tk.Frame(self.frame, bg="light grey", width=180)
+        self.margin_frame = tk.Frame(self.frame, bg="light blue", width=180)
         self.margin_frame.pack(side=tk.LEFT, fill=tk.Y)
 
         self.explanation_label = tk.Label(self.frame, text="Welcome to the Boolean Algebra App!\n\nThis application helps you with Boolean algebra operations and logic circuit simplifications.\n\nTo get started, click on the options in the left menu.")
@@ -301,7 +301,7 @@ class MenuPages(tk.Frame):
         self.create_close_button()
 
     def create_menu_buttons(self):
-        self.label_menu = tk.Label(self.margin_frame, text="Menu", bg="light grey", font=("Helvetica", 14, "bold"))
+        self.label_menu = tk.Label(self.margin_frame, text="Menu", bg="light blue", font=("Helvetica", 14, "bold"))
         self.label_menu.pack(pady=10)
     
         buttons = [
