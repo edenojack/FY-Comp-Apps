@@ -298,6 +298,7 @@ class MenuPages(tk.Frame):
         self.current_page = None
 
         self.create_menu_buttons()
+        self.create_close_button()
 
     def create_menu_buttons(self):
         self.label_menu = tk.Label(self.margin_frame, text="Menu", bg="light grey", font=("Helvetica", 14, "bold"))
@@ -317,6 +318,10 @@ class MenuPages(tk.Frame):
         for text, page in buttons:
             button = tk.Button(self.margin_frame, text=text, command=lambda p=page: self.show_page(p))
             button.pack(pady=10, padx=20)
+
+    def create_close_button(self):
+        close_button = tk.Button(self.master, text="Close", command=self.master.destroy)
+        close_button.place(x=1200, y=600)
 
     def show_page(self, page):
         if self.current_page:
@@ -466,5 +471,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
