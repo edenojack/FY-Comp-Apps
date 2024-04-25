@@ -116,7 +116,7 @@ class BinaryConverter(BasePage):
 
     def create_help_button(self):
         help_button = tk.Button(self, text="Help", command=self.show_help)
-        help_button.place(x=1200, y=10)
+        help_button.place(x=1000, y=10)
 
     def show_help(self):
         help_text = """
@@ -210,7 +210,7 @@ class BooleanSimplifierPage(BasePage):
         result_label.pack(pady=10)
 
         help_button = tk.Button(self, text="Help", command=self.show_help)
-        help_button.place(x=1200, y=10)
+        help_button.place(x=1000, y=10)
 
     def show_help(self):
         help_text = """
@@ -279,7 +279,7 @@ class LogicTheoryPage(BasePage):
 
     def create_help_button(self):
         help_button = tk.Button(self, text="Help", command=self.show_help)
-        help_button.place(x=1200, y=10)
+        help_button.place(x=1000, y=10)
 
     def show_help(self):
         help_text = """
@@ -298,7 +298,7 @@ class LogicTheoryPage(BasePage):
         messagebox.showinfo("Logic Theory Page Help", help_text)
 
     def create_logic_theory(self):
-        self.canvas = tk.Canvas(self, width=500, height=700)
+        self.canvas = tk.Canvas(self, width=500, height=500)
         self.canvas.pack(fill=tk.BOTH, expand=True)
         self.canvas.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
@@ -391,7 +391,7 @@ class MenuPages(tk.Frame):
 
     def create_close_button(self):
         close_button = tk.Button(self.master, text="Close", command=self.master.destroy)
-        close_button.place(x=1700, y=900)
+        close_button.place(x=1200, y=600)
 
     def show_page(self, page):
         if self.current_page:
