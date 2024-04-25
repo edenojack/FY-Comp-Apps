@@ -166,7 +166,7 @@ class BooleanSimplifierPage(BasePage):
 
         instruction_label = ttk.Label(self, text="Enter a Boolean expression (variables: A, B, C, D):")
         instruction_label.pack(pady=10)
-        note_label = ttk.Label(self, text="NOTE IN ANSWERS: '|' = AND, '~' = OR")
+        note_label = ttk.Label(self, text="NOTE IN ANSWERS: '|' = OR, '~' = NOT, '&' = AND")
         note_label.pack(pady=10)
 
         def simplify_expression():
@@ -180,7 +180,7 @@ class BooleanSimplifierPage(BasePage):
 
         def parse_boolean_expr(expr_text):
             transformations = (standard_transformations + (implicit_multiplication_application,))
-            expr_text = expr_text.replace('+', ' | ').replace('.', ' & ')
+            expr_text = expr_text.replace('+', ' | ').replace('.', ' & ').replace('!', '~')
             return parse_expr(expr_text, transformations=transformations, evaluate=False)
 
         def insert_text(text):
