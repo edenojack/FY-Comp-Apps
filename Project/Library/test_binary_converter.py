@@ -1,3 +1,7 @@
+# Author(s):	Jessica Whittington
+# Date Created: 01/05/2024
+# Description:  This module test the BinaryConverter class' functionalities for converting binary to decimal, decimal to binary, and decimal to hexadecimal numbers.
+
 import unittest
 import os
 import sys
