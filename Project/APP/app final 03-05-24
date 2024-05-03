@@ -7,7 +7,10 @@ from sympy.parsing.sympy_parser import standard_transformations, implicit_multip
 import subprocess
 import os
 
-#
+# you need to download the file 'logix file for final' and place in same folder as this file
+# once you've done that, on this code go to line 257, change the pathway in brackets to the pathway of the logix file
+# can find pathway by right clicking and selecting 'copy file pathway'
+
 
 # To make a new page add it as a class, for example:
 
