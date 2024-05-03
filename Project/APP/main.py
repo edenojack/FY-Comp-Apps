@@ -1,6 +1,16 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
+from sympy.logic.boolalg import simplify_logic
+from sympy.parsing.sympy_parser import parse_expr
+from sympy.parsing.sympy_parser import standard_transformations, implicit_multiplication_application
+import subprocess
+import os
+
+# you need to download the file 'logix file for final' and place in same folder as this file
+# once you've done that, on this code go to line 257, change the pathway in brackets to the pathway of the logix file
+# can find pathway by right clicking and selecting 'copy file pathway'
+
 
 # To make a new page add it as a class, for example:
 
@@ -154,19 +164,105 @@ class BinaryConverter(BasePage):
         Enjoy converting your numbers!
         """
         messagebox.showinfo("Binary Converter Help", help_text)
-
-
+        
 class BooleanSimplifierPage(BasePage):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.label_boolean_simplifier = tk.Label(self, text="Simplify Boolean Expressions", font=('bold', 16))
         self.label_boolean_simplifier.pack(padx=20, pady=20)
 
+        instruction_label = ttk.Label(self, text="Enter a Boolean expression (variables: A, B, C, D):")
+        instruction_label.pack(pady=10)
+        note_label = ttk.Label(self, text="NOTE IN ANSWERS: '|' = OR, '~' = NOT, '&' = AND")
+        note_label.pack(pady=10)
+
+        def simplify_expression():
+            expr_text = expr_entry.get()
+            try:
+                expr = parse_boolean_expr(expr_text)
+                simplified_expr = simplify_logic(expr, form='dnf')
+                result_label.config(text=f"Simplified expression: {simplified_expr}")
+            except Exception as e:
+                result_label.config(text=f"Error: {e}")
+
+        def parse_boolean_expr(expr_text):
+            transformations = (standard_transformations + (implicit_multiplication_application,))
+            expr_text = expr_text.replace('+', ' | ').replace('.', ' & ').replace('!', '~')
+            return parse_expr(expr_text, transformations=transformations, evaluate=False)
+
+        def insert_text(text):
+            expr_entry.insert(tk.END, text)
+
+        expr_entry = ttk.Entry(self, width=50)
+        expr_entry.pack(pady=10)
+
+        operators_frame = ttk.Frame(self)
+        operators_frame.pack(pady=10)
+
+        not_button = ttk.Button(operators_frame, text='!', command=lambda: insert_text("Not("))
+        not_button.grid(row=0, column=0, padx=5)
+        open_bracket_button = ttk.Button(operators_frame, text='(', command=lambda: insert_text("("))
+        open_bracket_button.grid(row=0, column=1, padx=5)
+        close_bracket_button = ttk.Button(operators_frame, text=')', command=lambda: insert_text(")"))
+        close_bracket_button.grid(row=0, column=2, padx=5)
+        or_button = ttk.Button(operators_frame, text='+', command=lambda: insert_text("+"))
+        or_button.grid(row=0, column=3, padx=5)
+        and_button = ttk.Button(operators_frame, text='.', command=lambda: insert_text("."))
+        and_button.grid(row=0, column=4, padx=5)
+
+        simplify_button = ttk.Button(self, text="Simplify", command = simplify_expression)
+        simplify_button.pack(pady=10)
+
+        result_label = ttk.Label(self, text="")
+        result_label.pack(pady=10)
+
+        help_button = tk.Button(self, text="Help", command=self.show_help)
+        help_button.place(x=1000, y=10)
+
+    def show_help(self):
+        help_text = """
+        Welcome to the Boolean Expression Simplifier!
+
+        This tool allows you to simplify Boolean expressions using basic operators and variables (A, B, C, D).
+        You can enter expressions using the following operators:
+        - '!' for NOT
+        - '(' and ')' for parentheses
+        - '+' for OR
+        - '.' for AND
+
+        To simplify an expression, enter it in the text box and click the 'Simplify' button.
+        The simplified expression will be displayed below.
+
+        Note: In Answers: '|' = OR, '~' = NOT, '&' = AND"
+
+        Enjoy simplifying your Boolean expressions!
+        """
+        messagebox.showinfo("Boolean Simplifier Help", help_text)
+        
 class LogicSimplifierPage(BasePage):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self.label_logic_simplifier = tk.Label(self, text="Simplfiy Logic Gates", font=('bold', 16))
+        self.label_logic_simplifier = tk.Label(self, text="Simplify Logic Gates", font=('bold', 16))
         self.label_logic_simplifier.pack(padx=20, pady=20)
+
+        # Button to open logix.py
+        self.open_logix_button = tk.Button(
+            self,
+            text="Open Logic Gate Simplifier",
+            command=self.open_logix,
+            bg='lightblue'
+        )
+        self.open_logix_button.pack(padx=20, pady=20)
+
+    def open_logix(self):
+        # Path to the Python script to be opened
+        file_path = r"C:\Users\nolan\OneDrive\Documents\Uni\VS Code\logix\logix.py"
+
+        try:
+            # Start a new process to run the logix.py script
+            subprocess.Popen(["python", file_path])
+        except Exception as e:
+            print(f"An error occurred while opening the Logix app: {e}")
 
 class BooleanFormulasPage(BasePage):
     def __init__(self, master, *args, **kwargs):
@@ -228,7 +324,7 @@ class LogicTheoryPage(BasePage):
         messagebox.showinfo("Logic Theory Page Help", help_text)
 
     def create_logic_theory(self):
-        self.canvas = tk.Canvas(self, width=450, height=500)
+        self.canvas = tk.Canvas(self, width=500, height=500)
         self.canvas.pack(fill=tk.BOTH, expand=True)
         self.canvas.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
