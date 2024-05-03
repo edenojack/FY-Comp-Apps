@@ -7,11 +7,6 @@ from sympy.parsing.sympy_parser import standard_transformations, implicit_multip
 import subprocess
 import os
 
-# you need to download the file 'logix file for final' and place in same folder as this file
-# once you've done that, on this code go to line 257, change the pathway in brackets to the pathway of the logix file
-# can find pathway by right clicking and selecting 'copy file pathway'
-
-
 # To make a new page add it as a class, for example:
 
     # class NewPage(BasePage):
@@ -238,7 +233,7 @@ class BooleanSimplifierPage(BasePage):
         Enjoy simplifying your Boolean expressions!
         """
         messagebox.showinfo("Boolean Simplifier Help", help_text)
-        
+
 class LogicSimplifierPage(BasePage):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
@@ -254,6 +249,10 @@ class LogicSimplifierPage(BasePage):
         )
         self.open_logix_button.pack(padx=20, pady=20)
 
+        # Adding the Help button
+        self.help_button = tk.Button(self, text="Help", command=self.show_help)
+        self.help_button.place(x=1000, y=10)  # Adjust position as needed
+
     def open_logix(self):
         # Path to the Python script to be opened
         file_path = r"C:\Users\nolan\OneDrive\Documents\Uni\VS Code\logix\logix.py"
@@ -263,6 +262,24 @@ class LogicSimplifierPage(BasePage):
             subprocess.Popen(["python", file_path])
         except Exception as e:
             print(f"An error occurred while opening the Logix app: {e}")
+
+    def show_help(self):
+        # Help text to be displayed
+        help_text = """
+        Welcome to the Logic Gate Simplifier!
+
+        This tool allows you to simulate logic gate circuits.
+        
+        You need to download the python file 'logix file for final' and place in same folder as this python file.
+        once you've done that, on this code go to line 258, change the pathway in brackets to the pathway of the logix file
+        can find pathway by right clicking and selecting 'copy file pathway'
+        you need to install all extensions, if needed write into terminal " pip install XXX "
+
+        """
+        # Show the help information in a message box
+        messagebox.showinfo("Boolean Simplifier Help", help_text)
+
+            
 
 class BooleanFormulasPage(BasePage):
     def __init__(self, master, *args, **kwargs):
